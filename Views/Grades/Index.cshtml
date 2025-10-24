@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Uni Grades";
+}
+
+<h1>University Grades</h1>
+
+<form asp-action="Index" method="post">
+    <div class="form-group">
+        <label for="course">Course Name</label>
+        <input type="text" class="form-control" id="course" name="course" />
+    </div>
+    <div class="form-group">
+        <label for="grade">Grade</label>
+        <input type="number" step="0.1" class="form-control" id="grade" name="grade" min="0" max="100" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Grade</button>
+</form>
+
+@if (ViewBag.Course != null && ViewBag.Grade != null)
+{
+        <h3>Latest Grade</h3>
+        <p>Course: @ViewBag.Course, Grade: @ViewBag.Grade%</p>
+}

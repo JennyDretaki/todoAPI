@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TodoListApp.Models.Goal>
+
+@{
+    ViewData["Title"] = "Goals";
+}
+
+<h1>Your Goals</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add Goal</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Completed</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var goal in Model)
+        {
+            <tr>
+                <td>@goal.Title</td>
+                <td>@goal.Type</td>
+                <td>@(goal.IsCompleted ? "Yes" : "No")</td>
+                <td>
+                    @if (!goal.IsCompleted)
+                    {
+                        <form asp-action="Complete" method="post">
+                            <input type="hidden" name="id" value="@goal.Id" />
+                            <button type="submit" class="btn btn-success">Mark Complete</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Any(g => g.IsCompleted))
+{
+    <div style="background-color: #e6ffe6; padding: 20px; border-radius: 10px; text-align: center; color: #006400;">
+        <h2>I'm Proud of You!</h2>
+        <p style="font-size: 1.2em;">Great job achieving your goals! Keep it up! 🎉</p>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
